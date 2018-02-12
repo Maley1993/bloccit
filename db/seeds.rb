@@ -1,15 +1,19 @@
 require 'random_data'
 
 # Create Posts
+
 50.times do
-# #1
   Post.create!(
-# #2
+
     title:  RandomData.random_sentence,
     body:   RandomData.random_paragraph
   )
 end
 posts = Post.all
+
+posts.find_or_create_by(title: 'Uqkduqye') do |post|
+  post.body = RandomData.random_paragraph
+end
 
 # Create Comments
 # #3
@@ -19,6 +23,9 @@ posts = Post.all
     post: posts.sample,
     body: RandomData.random_paragraph
   )
+end
+Comment.find_or_create_by(body: 'a nicely written comment body') do |comment|
+  comment.post_id = 51
 end
 
 puts "Seed finished"
