@@ -1,4 +1,5 @@
 require 'rails_helper'
+include RandomData
 
 RSpec.describe AdvertisementsController, type: :controller do
 
@@ -51,20 +52,20 @@ RSpec.describe AdvertisementsController, type: :controller do
     end
   end
 
-  # describe "ADVERTISEMENT create" do
-  #   it "increases the number of Ads by 1" do
-  #     expect{ advertisement :create, params: { advertisement: { title: RandomData.random_sentence, copy: RandomData.random_paragraph, price: RandomData.random_number } } }.to change(Advertisement,:count).by(1)
-  #   end
-  #
-  #   it "assigns the new advertisement to @advertisement" do
-  #     advertisement :create, params: { advertisement: { title: RandomData.random_sentence, copy: RandomData.random_paragraph, price: RandomData.random_number } }
-  #     expect(assigns(:advertisement)).to eq Advertisement.last
-  #   end
-  #
-  #   it "redirects to the new advertisement" do
-  #     advertisement :create, params: { advertisement: { title: RandomData.random_sentence, copy: RandomData.random_paragraph, price: RandomData.random_number } }
-  #     expect(response).to redirect_to Advertisement.last
-  #   end
-  # end
+  describe "ADVERTISEMENT create" do
+    it "increases the number of Ads by 1" do
+      expect{ post :create, params: { advertisement: { title: RandomData.random_sentence, copy: RandomData.random_paragraph, price: RandomData.random_number } } }.to change(Advertisement,:count).by(1)
+    end
+
+    it "assigns the new advertisement to @advertisement" do
+      post :create, params: { advertisement: { title: RandomData.random_sentence, copy: RandomData.random_paragraph, price: RandomData.random_number } }
+      expect(assigns(:advertisement)).to eq Advertisement.last
+    end
+
+    it "redirects to the new advertisement" do
+      post :create, params: { advertisement: { title: RandomData.random_sentence, copy: RandomData.random_paragraph, price: RandomData.random_number } }
+      expect(response).to redirect_to Advertisement.last
+    end
+  end
 
 end
