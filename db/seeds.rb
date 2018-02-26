@@ -1,8 +1,18 @@
 require 'random_data'
 
+# Create Topics
+15.times do
+  Topic.create!(
+    name:         RandomData.random_sentence,
+    description:  RandomData.random_paragraph
+  )
+end
+topics = Topic.all
+
 # Create Posts
 50.times do
   Post.create!(
+    topic:  topics.sample,
     title:  RandomData.random_sentence,
     body:   RandomData.random_paragraph
   )
@@ -17,28 +27,7 @@ posts = Post.all
   )
 end
 
-# Create Questions
-50.times do
-  Question.create!(
-    title:  RandomData.random_sentence,
-    body:   RandomData.random_paragraph,
-    resolved: false
-  )
-end
-questions = Question.all
-
-#Create advertisements
-50.times do
-  Advertisement.create!(
-    title:  RandomData.random_sentence,
-    copy:   RandomData.random_paragraph,
-    price:  RandomData.random_number
-  )
-end
-advertisements = Advertisement.all
-
 puts "Seed finished"
+puts "#{Topic.count} topics created"
 puts "#{Post.count} posts created"
 puts "#{Comment.count} comments created"
-puts "#{Question.count} questions created"
-puts "#{Advertisement.count} advertisements created"

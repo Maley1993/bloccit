@@ -1,17 +1,11 @@
 Rails.application.routes.draw do
 
-
-  resources :advertisements
-
-  resources :question
-
-  resources :posts
+  resources :topics do
+ # #34
+     resources :posts, except: [:index]
+   end
 
   get 'about' => 'welcome#about'
-
-  get 'posts' => 'posts#index'
-
-  get 'posts_new' => 'posts#new'
 
   root 'welcome#index'
 end

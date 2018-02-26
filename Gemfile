@@ -19,6 +19,7 @@ end
 group :development do
   # Use sqlite3 as the development database for Active Record
   gem 'sqlite3'
+  gem 'shoulda'
 end
 
 # Use Puma as the app server
