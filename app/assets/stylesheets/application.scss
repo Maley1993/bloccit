@@ -17,3 +17,12 @@
 
  @import "bootstrap-sprockets";
  @import "bootstrap";
+
+ .gravatar-image {
+   border-radius: 25px;
+ }
+
+ ul.nav.nav-tabs {
+    height: 65px;
+    padding-top: 5px;
+ }
