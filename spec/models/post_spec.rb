@@ -79,4 +79,10 @@ RSpec.describe Post, type: :model do
       end
     end
   end
+
+  describe "create_favorite" do
+    it "creates a favorite for the post that was created" do
+      expect(post.favorites.count).to eq(1)
+    end
+  end
 end
