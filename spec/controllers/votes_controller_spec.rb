@@ -3,27 +3,27 @@ include RandomData
 include SessionsHelper
 
 RSpec.describe VotesController, type: :controller do
-  let(:my_user) { User.create!(name: "Bloccit User", email: "user@bloccit.com", password: "helloworld") }
-     let(:other_user) { User.create!(name: RandomData.random_name, email: RandomData.random_email, password: "helloworld", role: :member) }
-     let(:my_topic) { Topic.create!(name:  RandomData.random_sentence, description: RandomData.random_paragraph) }
-     let(:user_post) { my_topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: other_user) }
-     let(:my_vote) { Vote.create!(value: 1) }
+  let(:my_topic) { create(:topic) }
+  let(:my_user) { create(:user) }
+  let(:other_user) { create(:user) }
+  let(:user_post) { create(:post, topic: my_topic, user: other_user) }
+  let(:my_vote) { Vote.create!(value: 1) }
 
-     context "guest" do
-       describe "POST up_vote" do
-         it "redirects the user to the sign in view" do
-           post :up_vote, params: { post_id: user_post.id }
-           expect(response).to redirect_to(new_session_path)
-         end
-       end
+  context "guest" do
+    describe "POST up_vote" do
+      it "redirects the user to the sign in view" do
+        post :up_vote, params: { post_id: user_post.id }
+        expect(response).to redirect_to(new_session_path)
+      end
+    end
 
-       describe "POST down_vote" do
-         it "redirects the user to the sign in view" do
-           delete :down_vote, params: { post_id: user_post.id }
-           expect(response).to redirect_to(new_session_path)
-         end
-       end
-     end
+    describe "POST down_vote" do
+      it "redirects the user to the sign in view" do
+        delete :down_vote, params: { post_id: user_post.id }
+        expect(response).to redirect_to(new_session_path)
+      end
+    end
+  end
 
      context "signed in user" do
        before do
@@ -63,7 +63,6 @@ RSpec.describe VotesController, type: :controller do
            expect(response).to redirect_to(my_topic)
          end
        end
-     end
 
      describe "POST down_vote" do
        it "the users first vote increases number of post votes by one" do
@@ -97,4 +96,5 @@ RSpec.describe VotesController, type: :controller do
          expect(response).to redirect_to(my_topic)
        end
      end
+   end
 end
